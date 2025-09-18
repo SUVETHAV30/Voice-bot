@@ -12,8 +12,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Initialize Groq LLM with streaming enabled
-llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0, streaming=True)
+# # Initialize Groq LLM with streaming enabled
+# llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0, streaming=True)
+from langchain_google_genai import ChatGoogleGenerativeAI
+
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", streaming=True)
 
 
 class AgentState(BaseModel):
@@ -89,12 +92,12 @@ class SearchAgent:
         prompt = f"""
         You are a friendly, witty voice assistant having a natural phone conversation. 
 
-        User just asked: "{state.messages[-1].content if state.messages else ""}"
-        Here's what I found: {state.search_results}
+        User just asked: "{{query}}"
+        Here's what I found: {{search_results}}
 
         Instructions:
         - Sound like you're chatting with a good friend, not reading a manual
-        - Sprinkle in some light humor or personality when appropriate 
+        - Sprinkle in some light humor or personality when appropriate
         - Keep responses under 30 seconds when spoken aloud
         - Use "um," "well," or "so" occasionally to sound natural
         - If the info is boring, make it interesting with analogies or fun facts
@@ -103,8 +106,6 @@ class SearchAgent:
         - Use contractions (it's, don't, can't) to sound conversational
         - Avoid lists or bullet points - speak in flowing sentences
         - If the search results are thin, be honest but offer to try a different angle
-
-        Remember: You're having a conversation, not delivering a presentation!
         """
         try:
             response_text = ""

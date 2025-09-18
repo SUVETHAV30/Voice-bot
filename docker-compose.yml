@@ -1,0 +1,15 @@
+
+services:
+  agent:
+    build:
+      context: .
+      dockerfile: Dockerfile.livekit
+    container_name: agent_service
+    command: poetry run python agent.py dev
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8000:8000"   # change if your app runs on another port
