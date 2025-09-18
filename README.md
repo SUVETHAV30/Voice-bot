@@ -20,6 +20,9 @@ poetry run python agent.py dev
 
 copy `id` to `sandbox-id` of react sdk (.env.local) and aslo `livekit-url`
 
+```bash
+cd agent-starter-react
+```
 
 ```bash
 npm run dev
