@@ -1,0 +1,7 @@
+.streamlit
+__pycache__
+data
+venv
+.env
+*.html
+*.pdf
